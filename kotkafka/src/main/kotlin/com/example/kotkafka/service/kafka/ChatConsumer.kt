@@ -13,7 +13,9 @@ class ChatConsumer {
 
     @KafkaListener(topics = ["chat-topic"], groupId = "chat-group")
     fun listen(message: String) {
+        println("RECEIVED:$message")
         messagingTemplate.convertAndSend("/topic/chat-messages", message)
+        println("Message sent")
 
     }
 }

@@ -7,15 +7,16 @@ import org.springframework.messaging.handler.annotation.SendTo
 import org.springframework.stereotype.Controller
 
 @Controller
-class ChatController {
+class ChatController(@Autowired private val chatProducer: ChatProducer) {
 
-    @Autowired
-    private lateinit var chatProducer: ChatProducer
+//    @Autowired
+//    private lateinit var chatProducer: ChatProducer
 
 
     @MessageMapping("/chat.sendMessage")
     @SendTo("/topic/messages")
     fun sendMessage(message: String) {
+        println("MESSAGE ARRIVED")
         chatProducer.sendMessage(message)
     }
 }
